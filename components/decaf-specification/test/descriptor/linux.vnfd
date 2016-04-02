@@ -1,0 +1,36 @@
+{
+    "vnf": {
+        "VNFC": [
+            {
+                "vcpus": 1, 
+                "disk": 10, 
+                "bridge-ifaces": [
+                    {
+                        "vpci": "0000:00:11.0", 
+                        "bandwidth": "1 Gbps", 
+                        "name": "eth0"
+                    }
+                ], 
+                "name": "linux-VM", 
+                "ram": 1, 
+                "VNFC image": "/path/to/imagefolder/linux.qcow2", 
+                "description": "Generic Linux Virtual Machine"
+            }
+        ], 
+        "description": "Single-VM VNF with a traditional cloud VM based on generic Linux OS", 
+        "name": "linux", 
+        "public": true, 
+        "auth": {"username" : "decaf","password" : "decafpw"},
+        "events":{"after_startup":["echo 'Hello, Is there anybody out there ???'"]},
+        "external-connections": [
+            {
+                "local_iface_name": "eth0", 
+                "VNFC": "linux-VM", 
+                "type": "bridge", 
+                "name": "eth0", 
+                "description": "General purpose interface"
+            }
+        ], 
+        "physical": false
+    }
+}

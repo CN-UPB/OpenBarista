@@ -1,0 +1,117 @@
+{
+    "vnf": {
+        "VNFC": [
+            {
+                "VNFC image": "/path/to/imagefolder/dataplaneVNF2.qcow2", 
+                "data-ifaces": [
+                    {
+                        "vpci": "0000:00:11.0", 
+                        "bandwidth": "10 Gbps", 
+                        "dedicated": "yes", 
+                        "name": "xe0"
+                    }, 
+                    {
+                        "vpci": "0000:00:12.0", 
+                        "bandwidth": "10 Gbps", 
+                        "dedicated": "yes", 
+                        "name": "xe1"
+                    }, 
+                    {
+                        "vpci": "0000:00:13.0", 
+                        "bandwidth": "1 Gbps", 
+                        "dedicated": "no", 
+                        "name": "xe2"
+                    }
+                ],
+                "auth": {
+                    "username" : "thgoette",
+                    "password"  : "wasser"
+                },
+                "bridge-ifaces": [
+                    {
+                        "vpci": "0000:00:09.0", 
+                        "bandwidth": "1 Mbps", 
+                        "name": "eth0"
+                    }, 
+                    {
+                        "vpci": "0000:00:10.0", 
+                        "bandwidth": "1 Mbps", 
+                        "name": "eth1"
+                    }
+                ],
+                "access" : "SSH",
+                "events"    : {
+
+                    "after_startup" : [
+                                        "echo {message}"
+                                      ],
+
+                    "before_shutdown": [
+                                        "echo 'blub'"
+                                       ]
+
+
+                },
+                "name": "dataplaneVNF2-VM", 
+                "description": "Dataplane VM with high I/O performance requirements: 3 cores (no hyperthreading), 8 GB hugepages, 2 10G interfaces and 1 SR-IOV interface"
+            }
+        ],
+        "internal-connections": [
+            {
+                "name":"conn1",
+                "type":"state",
+                "elements":[
+                    {
+                        "VNFC":"VNFC1"
+                    },
+                    {
+                        "VNFC":"VNFC2"
+                    }
+                ]
+            }
+
+        ],
+        "vnfcs":["VNFC1","VNFC2"],
+        "description": "Example of a dataplane VNF consisting of a single VM for data plane workloads with high I/O performance requirements: 3 cores, 8 GB hugepages, 2 10G interfaces and 1 SR-IOV interface", 
+        "name": "dataplaneVNF2", 
+        "public": true, 
+        "external-connections": [
+            {
+                "local_iface_name": "eth0", 
+                "VNFC": "dataplaneVNF2-VM", 
+                "type": "mgmt", 
+                "name": "mgmt", 
+                "description": "Management interface for general use"
+            }, 
+            {
+                "local_iface_name": "eth1", 
+                "VNFC": "dataplaneVNF2-VM", 
+                "type": "bridge", 
+                "name": "control", 
+                "description": "Bridge interface"
+            }, 
+            {
+                "local_iface_name": "xe0", 
+                "VNFC": "dataplaneVNF2-VM", 
+                "type": "data", 
+                "name": "xe0", 
+                "description": "Dataplane interface 1"
+            }, 
+            {
+                "local_iface_name": "xe1", 
+                "VNFC": "dataplaneVNF2-VM", 
+                "type": "data", 
+                "name": "xe1", 
+                "description": "Dataplane interface 2"
+            }, 
+            {
+                "local_iface_name": "xe2", 
+                "VNFC": "dataplaneVNF2-VM", 
+                "type": "data", 
+                "name": "xe2", 
+                "description": "Dataplane interface 3 (SR-IOV)"
+            }
+        ], 
+        "physical": false
+    }
+}

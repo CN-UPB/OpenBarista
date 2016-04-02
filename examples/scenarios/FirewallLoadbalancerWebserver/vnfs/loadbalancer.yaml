@@ -1,0 +1,54 @@
+vnf:
+    name: loadbalancer
+    description: This is a virtual load balancer with one VM
+    max-instance: 1
+    external-connections:
+    -   name:              mgmt0
+        type:              mgmt              # "mgmt" (autoconnect to management net), "bridge", "data"
+        VNFC:              loadbalancer-VM      # Virtual Machine this interface belongs to
+        local_iface_name:  int0             # interface name inside this Virtual Machine (must be defined in the VNFC section)
+        description:       Management interface.
+    -   name:              data0
+        type:              data              # "mgmt" (autoconnect to management net), "bridge", "data"
+        VNFC:              loadbalancer-VM        # Virtual Machine this interface belongs to
+        local_iface_name:  int1               # interface name inside this Virtual Machine (must be defined in the VNFC section)
+        description:       Data interface to the firewall.
+    -   name:              data1
+        type:              data              # "mgmt" (autoconnect to management net), "bridge", "data"
+        VNFC:              loadbalancer-VM       # Virtual Machine this interface belongs to
+        local_iface_name:  int2               # interface name inside this Virtual Machine (must be defined in the VNFC section)
+        description:       Data interface to webserver 1.
+    VNFC:                              # Virtual machine array
+    # First Virtual Machine
+    -   name:        loadbalancer-VM      # name of Virtual Machine
+        description:  Virtual machine containing loadbalancer image
+        VNFC image: http://pg:decaf@groups.uni-paderborn.de/decaf/images/loadbalancer.qcow2
+        auth:
+            username: debian
+            password: R3L8uo725h1
+        events:
+            after_startup:
+            - echo 'Starting'
+            new_successor:
+            - sudo server_add -i {ip_address}
+            delete_successor:
+            - sudo server_remove -i {ip_address}
+        # image metadata: {"bus":"ide", "os_type":"windows", "use_incremental": "no" } #Optional
+        vcpus: 1          # Only for traditional cloud VMs. Number of virtual CPUs (oversubscription is allowed).
+        ram: 512
+        disk: 0
+        max-instance: 1
+        data-ifaces:
+        -   name:      int1
+            vpci:      "0000:00:11.0"
+            dedicated: "yes"         # "yes"(passthrough), "no"(sriov with vlan tags), "yes:sriov"(sriovi, but exclusive and without vlan tag)
+            bandwidth: 10 Gbps
+        -   name:      int2
+            vpci:      "0000:00:12.0"
+            dedicated: "yes"
+            bandwidth: 10 Gbps
+        bridge-ifaces:
+        -   name:      int0
+            vpci:      "0000:00:09.0"  # Optional. Virtual PCI address
+            bandwidth: 1 Mbps
+

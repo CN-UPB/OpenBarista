@@ -1,0 +1,19 @@
+---
+name:            Scenario
+description:     Basic scenario for the presentation
+topology:
+  nodes:
+    node1:                   # vnf/net name in the scenario
+      uuid:     ebc704cea63d40eba1561943cb87005e
+      type:      VNF          # VNF, network, external_network (if it is a datacenter network)
+      VNF model: firewall        # VNF name as introduced in OPENMANO DB
+    node2:
+      uuid:     eb3e1551b85747158a01adb0d0e1be81
+      type:      VNF
+      VNF model: loadbalancer
+
+  connections:
+    dataconn1:
+      nodes:
+      -   node1: data1
+      -   node2: data0

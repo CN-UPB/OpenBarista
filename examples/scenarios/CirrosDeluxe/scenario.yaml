@@ -1,0 +1,19 @@
+---
+name:            CirrosDeluxe
+description:     Basic scenario for the presentation with Cirros Images
+topology:
+  nodes:
+    node1:
+      uuid:     d6a0badbea284774ab2aeaf2c5832f5b
+      type:      VNF
+      VNF model: loadbalancer
+    node2:
+      uuid:     5441283a440947f4924964c86aec7bc2
+      type:      VNF
+      VNF model: simplewebserver
+  connections:
+    dataconn1:
+      nodes:
+      -   node1: data0
+      -   node2: data0
+

@@ -1,0 +1,19 @@
+---
+name:            simple
+description:     Simple network scenario consisting of a single VNF connected to an external network
+topology: 
+  nodes: 
+    linux1:                   # vnf/net name in the scenario
+      uuid:     33790b09-b145-41c8-8de3-eb2ec9adfc1e
+      type:      VNF          # VNF, network, external_network (if it is a datacenter network)
+      VNF model: linux        # VNF name as introduced in OPENMANO DB
+    default:
+      uuid:     33790b09-b145-41c8-8de3-eb2ec9adfc1e
+      type:      VNF # Datacenter net
+      VNF model: linux
+  connections: 
+    conn1:                   # provide a name for this net or connection
+      nodes: 
+      -   default: eth0      # Datacenter net
+      -   linux1: eth0       # Node and its interface
+

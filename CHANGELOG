@@ -1,0 +1,9 @@
+2016-04-02 Version 0.2
+           VNF Lifecicle Management
+           More Component abstraction
+           Scaling as Example Component
+2015-10-06 Version 0.1
+           Basic project infrastructure
+           Rpc layer
+           Component manager
+2015-08-25 Initial commit

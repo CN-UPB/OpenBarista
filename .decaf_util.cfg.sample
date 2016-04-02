@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+#
+# The default editor which opens for example config files.
+# default is /usr/bin/editor
+#
+# EDITOR=vim
+
+#
+# Command to display log files.
+#
+# LESS=less -R

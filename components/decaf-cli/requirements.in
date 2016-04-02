@@ -1,0 +1,3 @@
+PyYAML==3.11
+argcomplete>=1.0.0
+Twisted>=15.5.0
