@@ -4,14 +4,14 @@ The file structure looks as follows:
 
 ### Components
 
-```/components/\<componentpackagename\>/\<packagefiles\>```
+`/components/\<componentpackagename\>/\<packagefiles\>`
 
-An example component skeleton can be found in ```/components/template.```
+An example component skeleton can be found in `/components/template.`
 
 ### Utility-Methods
 they can be used by more than one Component
 
-```/utils/\<utilpackagename\>/\<packagefiles\>```
+`/utils/\<utilpackagename\>/\<packagefiles\>`
 
 
 # Getting started
@@ -41,9 +41,9 @@ The routine will
 - install needed python packages
 - build all components
 - create needed directories
-- copy default configs into ```/etc/decaf/```
+- copy default configs into `/etc/decaf/`
 
-Logs of components can be found in ```/var/log/decaf/```
+Logs of components can be found in `/var/log/decaf/`
 
 Under components you can manage all your components
 
@@ -63,7 +63,8 @@ Debian:
 
 Add the following line to */etc/apt/sources.list*
 
-```apt_sources
+```bash
+apt_sources
 deb http://www.rabbitmq.com/debian/ testing main
 ```
 and execute these commands
