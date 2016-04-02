@@ -1,0 +1,4 @@
+include res/add_iface.py
+include res/add_iface.sh
+include res/delete_iface.py
+include res/delete_iface.sh

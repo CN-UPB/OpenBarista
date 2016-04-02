@@ -1,0 +1,38 @@
+vnf:
+    name:        simplewebserver-cirros
+    description: This is a virtual webserver with one VM and by that I mean a Cirros Image that does nothing... Deal with it
+    external-connections:
+    -   name:              mgmt0
+        type:              mgmt
+        VNFC:              webserver-VM
+        local_iface_name:  int0
+        description:       Management interface.
+    -   name:              data0
+        type:              data
+        VNFC:              webserver-VM
+        local_iface_name:  int1
+        description:       Interface to the loadbalancer.
+
+    VNFC:
+    -   name:        webserver-VM-Cirros
+        description: Generic Virtual Machine for webserver-Cirros
+        #Copy the image to a compute path and edit this path
+        VNFC image:  http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+        auth:
+            username: cirros
+            password: cubswin:)
+        events:
+            after_startup:
+            - echo 'Starting'
+        vcpus: 1          # Only for traditional cloud VMs. Number of virtual CPUs (oversubscription is allowed).
+        ram: 512          # Only for traditional cloud VMs. Memory in MBytes (not from hugepages, oversubscription is allowed)
+        disk: 0
+        bridge-ifaces:
+        -   name:      int0
+            vpci:      "0000:00:11.0"
+            bandwidth: 1 Gbps
+        data-ifaces:
+        -   name:      int1
+            vpci:      "0000:00:11.0"
+            dedicated: "yes"         # "yes"(passthrough), "no"(sriov with vlan tags), "yes:sriov"(sriovi, but exclusive and without vlan tag)
+            bandwidth: 10 Gbps

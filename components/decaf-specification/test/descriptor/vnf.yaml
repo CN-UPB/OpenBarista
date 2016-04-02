@@ -1,0 +1,92 @@
+vnf:
+    name: TEMPLATE-2VM
+    description: This is a template to help in the creation of multi-VM VNFs
+    # class: parent      # Optional. Used to organize VNFs
+    internal-connections:
+    -   name:        datanet
+        description: datanet
+        type:        data
+        elements:
+        -   VNFC:             VirtualMachine-1
+            local_iface_name: xe0
+        -   VNFC:             VirtualMachine-2
+            local_iface_name: xe0
+    -   name:        controlnet
+        description: controlnet
+        type:        bridge
+        elements:
+        -   VNFC:             VirtualMachine-1
+            local_iface_name: ge0
+        -   VNFC:             VirtualMachine-2
+            local_iface_name: ge0
+    external-connections:
+    -   name:              mgmt0
+        type:              mgmt              # "mgmt" (autoconnect to management net), "bridge", "data"
+        VNFC:              VirtualMachine-1  # Virtual Machine this interface belongs to
+        local_iface_name:  mgmt0             # interface name inside this Virtual Machine (must be defined in the VNFC section)
+        description:       Management interface 1
+    -   name:              mgmt1
+        type:              mgmt              # "mgmt" (autoconnect to management net), "bridge", "data"
+        VNFC:              VirtualMachine-2  # Virtual Machine this interface belongs to
+        local_iface_name:  mgmt0             # interface name inside this Virtual Machine (must be defined in the VNFC section)
+        description:       Management interface 2
+    -   name:              data0
+        type:              data              # "mgmt" (autoconnect to management net), "bridge", "data"
+        VNFC:              VirtualMachine-1  # Virtual Machine this interface belongs to
+        local_iface_name:  xe1               # interface name inside this Virtual Machine (must be defined in the VNFC section)
+        description:       Data interface 1
+    -   name:              data1
+        type:              data              # "mgmt" (autoconnect to management net), "bridge", "data"
+        VNFC:              VirtualMachine-2  # Virtual Machine this interface belongs to
+        local_iface_name:  xe1               # interface name inside this Virtual Machine (must be defined in the VNFC section)
+        description:       Data interface 2
+    VNFC:                              # Virtual machine array 
+    # First Virtual Machine
+    -   name:        VirtualMachine-1       # name of Virtual Machine
+        description: VM 1 in the MultiVM template
+        VNFC image: /path/to/imagefolder/TEMPLATE-2VM-VM1.qcow2
+        # image metadata: {"bus":"ide", "os_type":"windows", "use_incremental": "no" } #Optional
+        vcpus: 1          # Only for traditional cloud VMs. Number of virtual CPUs (oversubscription is allowed).
+        ram: 1  #GB
+        disk: 10 #GB
+        data-ifaces:
+        -   name:      xe0
+            vpci:      "0000:00:11.0"     
+            dedicated: "yes"         # "yes"(passthrough), "no"(sriov with vlan tags), "yes:sriov"(sriovi, but exclusive and without vlan tag)
+            bandwidth: 10 Gbps
+        -   name:      xe1
+            vpci:      "0000:00:12.0"
+            dedicated: "yes"
+            bandwidth: 10 Gbps
+
+        bridge-ifaces:
+        -   name:      mgmt0
+            vpci:      "0000:00:09.0"  # Optional. Virtual PCI address 
+            bandwidth: 1 Mbps 
+        -   name:      ge0
+            vpci:      "0000:00:10.0"
+            bandwidth: 1 Mbps
+
+    -   name:        VirtualMachine-2       # name of Virtual Machine
+        description: VM 1 in the MultiVM template
+        VNFC image: /path/to/imagefolder/TEMPLATE-2VM-VM1.qcow2
+        # image metadata: {"bus":"ide", "os_type":"windows", "use_incremental": "no" } #Optional
+        vcpus: 1          # Only for traditional cloud VMs. Number of virtual CPUs (oversubscription is allowed).
+        ram: 1  #GB
+        data-ifaces:
+        -   name:      xe0
+            vpci:      "0000:00:11.0"     
+            dedicated: "yes"         # "yes"(passthrough), "no"(sriov with vlan tags), "yes:sriov"(sriovi, but exclusive and without vlan tag)
+            bandwidth: 10 Gbps
+        -   name:      xe1
+            vpci:      "0000:00:12.0"
+            dedicated: "yes"
+            bandwidth: 10 Gbps
+
+        bridge-ifaces:
+        -   name:      mgmt0
+            vpci:      "0000:00:09.0"  # Optional. Virtual PCI address 
+            bandwidth: 1 Mbps 
+        -   name:      ge0
+            vpci:      "0000:00:10.0"
+            bandwidth: 1 Mbps

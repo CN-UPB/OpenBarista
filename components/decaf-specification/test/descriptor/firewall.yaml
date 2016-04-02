@@ -1,0 +1,52 @@
+---
+vnf:
+    name: firewall
+    description: This is a virtual firewall with one VM
+    max_instance: 2
+    external-connections:
+    -   name:              mgmt0
+        type:              mgmt              # "mgmt" (autoconnect to management net), "bridge", "data"
+        VNFC:              Firewall_vm      # Virtual Machine this interface belongs to
+        local_iface_name:  mgmt0             # interface name inside this Virtual Machine (must be defined in the VNFC section)
+        description:       Management interface 1
+    -   name:              data1
+        type:              data              # "mgmt" (autoconnect to management net), "bridge", "data"
+        VNFC:              Firewall_vm        # Virtual Machine this interface belongs to
+        local_iface_name:  xe1               # interface name inside this Virtual Machine (must be defined in the VNFC section)
+        description:       Data interface 1
+    -   name:              data0
+        type:              data              # "mgmt" (autoconnect to management net), "bridge", "data"
+        VNFC:              Firewall_vm       # Virtual Machine this interface belongs to
+        local_iface_name:  xe0               # interface name inside this Virtual Machine (must be defined in the VNFC section)
+        description:       Data interface 2
+    VNFC:                              # Virtual machine array 
+    # First Virtual Machine
+    -   name:        Firewall_vm      # name of Virtual Machine
+        description:  Virtual machine containing Firewall image
+        VNFC image: http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+        auth:
+            username: cirros
+            password: cubswin:)
+        events:
+            after_startup:
+            - echo 'Starting'
+            new_successor:
+            - echo {ip_address} {interface}
+        # image metadata: {"bus":"ide", "os_type":"windows", "use_incremental": "no" } #Optional
+        vcpus: 1          # Only for traditional cloud VMs. Number of virtual CPUs (oversubscription is allowed).
+        ram: 512  #GB
+        disk: 512 #MB
+        max_instance: 2
+        data-ifaces:
+        -   name:      xe0
+            vpci:      "0000:00:11.0"     
+            dedicated: "yes"         # "yes"(passthrough), "no"(sriov with vlan tags), "yes:sriov"(sriovi, but exclusive and without vlan tag)
+            bandwidth: 10 Gbps
+        -   name:      xe1
+            vpci:      "0000:00:12.0"
+            dedicated: "yes"
+            bandwidth: 10 Gbps
+        bridge-ifaces:
+        -   name:      mgmt0
+            vpci:      "0000:00:09.0"  # Optional. Virtual PCI address 
+            bandwidth: 1 Mbps

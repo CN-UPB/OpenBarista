@@ -1,0 +1,8 @@
+example_event = {
+    "monitoring_alarm_event": {
+        "subscription_name": "subscri",
+        "value": 100,  # absolute!,
+        "request_obj": "dict",
+        "vm_instance_id": "ffeeee"
+    }
+}

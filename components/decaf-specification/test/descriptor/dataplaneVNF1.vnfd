@@ -1,0 +1,85 @@
+{
+    "vnf": {
+        "VNFC": [
+            {
+                "VNFC image": "/path/to/imagefolder/dataplaneVNF1.qcow2", 
+                "data-ifaces": [
+                    {
+                        "vpci": "0000:00:11.0", 
+                        "bandwidth": "10 Gbps", 
+                        "dedicated": "yes", 
+                        "name": "xe0"
+                    }, 
+                    {
+                        "vpci": "0000:00:12.0", 
+                        "bandwidth": "10 Gbps", 
+                        "dedicated": "yes", 
+                        "name": "xe1"
+                    }, 
+                    {
+                        "vpci": "0000:00:13.0", 
+                        "bandwidth": "10 Gbps", 
+                        "dedicated": "yes", 
+                        "name": "xe2"
+                    }, 
+                    {
+                        "vpci": "0000:00:14.0", 
+                        "bandwidth": "10 Gbps", 
+                        "dedicated": "yes", 
+                        "name": "xe3"
+                    }
+                ], 
+                "bridge-ifaces": [
+                    {
+                        "vpci": "0000:00:09.0", 
+                        "bandwidth": "1 Mbps", 
+                        "name": "eth0"
+                    }
+                ], 
+                "name": "dataplaneVNF1-VM", 
+                "description": "Dataplane VM with high I/O performance requirements: 14 HW threads, 16 GB hugepages and 4 10G interfaces"
+            }
+        ], 
+        "description": "Example of a dataplane VNF consisting of a single VM for data plane workloads with high I/O performance requirements: 14 HW threads, 16 GB hugepages and 4 10G interfaces", 
+        "name": "dataplaneVNF1", 
+        "public": true, 
+        "external-connections": [
+            {
+                "local_iface_name": "eth0", 
+                "VNFC": "dataplaneVNF1-VM", 
+                "type": "mgmt", 
+                "name": "mgmt", 
+                "description": "Management interface for general use"
+            }, 
+            {
+                "local_iface_name": "xe0", 
+                "VNFC": "dataplaneVNF1-VM", 
+                "type": "data", 
+                "name": "xe0", 
+                "description": "Dataplane interface 1"
+            }, 
+            {
+                "local_iface_name": "xe1", 
+                "VNFC": "dataplaneVNF1-VM", 
+                "type": "data", 
+                "name": "xe1", 
+                "description": "Dataplane interface 2"
+            }, 
+            {
+                "local_iface_name": "xe2", 
+                "VNFC": "dataplaneVNF1-VM", 
+                "type": "data", 
+                "name": "xe2", 
+                "description": "Dataplane interface 3"
+            }, 
+            {
+                "local_iface_name": "xe3", 
+                "VNFC": "dataplaneVNF1-VM", 
+                "type": "data", 
+                "name": "xe3", 
+                "description": "Dataplane interface 4"
+            }
+        ], 
+        "physical": false
+    }
+}

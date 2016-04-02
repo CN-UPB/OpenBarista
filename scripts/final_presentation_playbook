@@ -1,0 +1,50 @@
+FINAL PRESENTATION SCRIPTS
+
+START COMPONENTS:
+# on the headnode:
+# cd decaf
+# source .env/bin/activate
+# ./scripts/final_presentation_start.sh
+
+START SCENARIO:
+decaf-cli call decaf_deployment deploy_scenario c320c301-ef1a-4f69-81b8-8b4f32d749cc TestScenario "The test scenario for the presentation."
+{"scenario_id": "c320c301-ef1a-4f69-81b8-8b4f32d749cc", "scenario_instance_name": "TestScenario", "scenario_instance_description": "The test scenario for the presentation."}
+
+# source admin-openrc.sh
+# nova list
+
+SCALE UP SCENARIO:
+decaf-cli call decaf_example_scaling setup_scale_up
+# the ID is the scenario instance id
+
+# MONITORING:
+# ceilometer alarm-list
+ceilometer sample-list --meter cpu_util -q 'resource_id=c1320132-38fa-4ef0-9451-3d202135c725'
+# siege 203.0.113.129/random.php
+
+# If ceilometer alarm is not triggered:
+./scripts/final_presentation_trigger_scaling.sh 1ae8cb1f-8461-45c4-8138-c8ebabdfd3b6 80
+# the first is the alarm id in OpenStack, the second is the value
+
+SCALE DOWN SCENARIO:
+decaf-cli call decaf_example_scaling setup_scale_down
+# the ID is the scenario instance id
+
+DESTROY:
+decaf-cli call decaf_deployment destroy_all_scenario_instances
+
+decaf-cli call decaf_masta delete_all_monitoring_alarms
+decaf-cli call decaf_deployment destroy_scenario_instance d68566f3-96dc-4e40-b43c-da59b4813a80
+
+
+ceilometer sample-list --meter cpu_util -q 'resource_id=6ace8eb9-5d06-4c86-977b-818cf25ebee6'
+ceilometer alarm-state-set --state alarm 003b06ae-d454-4d24-8015-82e6e18cdd6d
+
+python -m tests.rpc_client_test delete_monitoring_alarm masta.alarm.3332c1d7-77ff-4d4f-96bc-2c0ed3c3feda.2
+
+sudo service ceilometer-agent-central restart
+sudo service ceilometer-agent-notification restart
+sudo service ceilometer-api restart
+sudo service ceilometer-collector restart
+sudo service ceilometer-alarm-evaluator restart
+sudo service ceilometer-alarm-notifier restart
