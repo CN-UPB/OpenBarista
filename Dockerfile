@@ -20,8 +20,8 @@ RUN git clone https://github.com/CN-UPB/OpenBarista.git /home/openbarista
 
 RUN /etc/init.d/postgresql start
 RUN /etc/init.d/rabbitmq-server start
+RUN /home/openbarista/scripts/create_dirs.sh
 RUN find /home/openbarista/ -name '*.cfg' -exec cp {} /etc/decaf \;
-zRUN /home/openbarista/scripts/create_dirs.sh
 
 RUN cd /home/openbarista && /usr/bin/make install
 
