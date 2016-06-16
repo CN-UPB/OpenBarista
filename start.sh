@@ -7,6 +7,9 @@
 /home/openbarista/scripts/create_dirs.sh
 
 /usr/local/bin/storaged start &
+
+# some sleeping required as storaged seems to be the most important component
+sleep 5
 /usr/local/bin/deploymentd start &
 /usr/local/bin/componentmanagerd &
 /usr/local/bin/placementd start&
