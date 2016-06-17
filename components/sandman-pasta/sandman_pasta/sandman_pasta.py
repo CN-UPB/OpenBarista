@@ -28,12 +28,6 @@ class Pasta(BasePlugin):
     config = None
 
     def __init__(self, logger=None, config=None):
-        # fake being masta, so we don't have to change other code
-        self.__class__.__name__ == "masta"
-        super(Pasta, self).__init__(logger=logger, config=config)
-
-        self.logger.debug('Checking configuration')
-
         # Sample format
         # datacenters:
         #   datacenter:
@@ -47,12 +41,14 @@ class Pasta(BasePlugin):
             self.logger.error("No configuration file found or not in yaml format.")
             sys.exit(1)
 
+        super(Pasta, self).__init__(logger=logger, config=config)
+
         try:
             self.datacenters = self.config["datacenters"]
         except KeyError as e:
             self.logger.error("Please check the configuration. There is no datacenter defined.")
             sys.exit(1)
-        self.logger.debug('Seems sane.')
+        self.logger.debug('Configuration seems sane.')
 
     def _before_connect(self, url=None, rpc=None, routing_key=None):
         pass
@@ -85,6 +81,10 @@ class Pasta(BasePlugin):
                     "type": "openstack",
                     "datacenter_masta_id": datacenter.datacenter_id
                 })
+
+    def connect(self, url=None, rpc=None, routing_key=None):
+        # fake being masta, so we don't have to change other code
+        super(Pasta,self).connect(self.config["rpc"]["url"],None,"decaf_masta")
 
 
     @In("datacenter_id", int)
