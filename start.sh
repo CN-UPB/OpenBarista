@@ -3,6 +3,8 @@
 /etc/init.d/rabbitmq-server start
 /etc/init.d/postgresql start
 
+#some delay so postgres can start up
+sleep 3
 /home/openbarista/scripts/recreate_database.sh
 /home/openbarista/scripts/create_dirs.sh
 rm /var/run/decaf/*

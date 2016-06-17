@@ -24,7 +24,12 @@ RUN /home/openbarista/scripts/create_dirs.sh
 RUN find /home/openbarista/ -name '*.cfg' -exec cp {} /etc/decaf \;
 
 RUN cd /home/openbarista && /usr/bin/make install
+# i have no idea why it doesn't build on the first run
+RUN cd /home/openbarista/components/decaf-specification && /usr/bin/make install
 
 EXPOSE 5672
 
 ENTRYPOINT /home/openbarista/start.sh
+
+
+

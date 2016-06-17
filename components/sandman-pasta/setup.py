@@ -19,7 +19,7 @@ setup(
     zip_safe=False,
     entry_points={
         'console_scripts': [
-            'pastad = sandman-pasta:daemon',
+            'pastad = sandman_pasta:daemon',
         ]
     },
 )

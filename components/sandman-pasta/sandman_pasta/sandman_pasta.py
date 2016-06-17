@@ -19,11 +19,11 @@ import traceback
 
 __author__ = "Banana PG-SANDMAN"
 __date__ = "$01-jun-2016$"
+__version__ = "0.1-dev01"
 
 TMPDIR = "/tmp/decaf/"
 
 class Pasta(BasePlugin):
-    __version__ = "0.1-dev01"
 
     datacenters = dict()
     config = None
