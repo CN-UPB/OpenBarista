@@ -32,7 +32,7 @@ class Pasta(BasePlugin):
         self.__class__.__name__ == "masta"
         super(Pasta, self).__init__(logger=logger, config=config)
 
-        self.logger.info('Checking configuration')
+        self.logger.debug('Checking configuration')
 
         # Sample format
         # datacenters:
@@ -52,7 +52,7 @@ class Pasta(BasePlugin):
         except KeyError as e:
             self.logger.error("Please check the configuration. There is no datacenter defined.")
             sys.exit(1)
-        self.logger.info('Seems sane.')
+        self.logger.debug('Seems sane.')
 
     def _before_connect(self, url=None, rpc=None, routing_key=None):
         pass
