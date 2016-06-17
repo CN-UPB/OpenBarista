@@ -19,12 +19,11 @@ import traceback
 
 __author__ = "Banana PG-SANDMAN"
 __date__ = "$01-jun-2016$"
-__version__ = "0.1-dev01"
 
 TMPDIR = "/tmp/decaf/"
 
 class Pasta(BasePlugin):
-
+    __version__ = "0.1-dev01"
     datacenters = dict()
     config = None
 
@@ -44,7 +43,7 @@ class Pasta(BasePlugin):
         with open('/etc/decaf/pastad.cfg') as file:
             self.config = yaml.safe_load(file)
 
-        if self.config is not None:
+        if self.config is None:
             self.logger.error("No configuration file found or not in yaml format.")
             sys.exit(1)
 
@@ -105,3 +104,9 @@ class Pasta(BasePlugin):
     def create_keystone_credentials(self, keystone_credentials):
         self.logger.info("Call to create_keystone_credentials")
         return 0
+
+def daemon():
+    daemonize(Pasta)
+
+if __name__ == '__main__':
+    daemon()
