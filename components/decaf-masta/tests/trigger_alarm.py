@@ -14,7 +14,7 @@ def trigger_alarm(url, alarm_id, value):
 
 if __name__ == '__main__':
 
-    url = "http://fg-cn-decaf-head1.cs.upb.de:5001/alarm"
+    url = "http://fg-cn-sandman1.cs.upb.de:5001/alarm"
 
     alarm_id = sys.argv[1]
     value = sys.argv[2]

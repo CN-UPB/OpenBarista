@@ -15,7 +15,7 @@ def printer( *args, **kwargs):
 class RPCTester(object):
 
     def __init__(self):
-        self.rpc = RpcLayer(u'amqp://fg-cn-decaf-head1.cs.upb.de:5672', logger=None)
+        self.rpc = RpcLayer(u'amqp://fg-cn-sandman1.cs.upb.de:5672', logger=None)
 
     def test_deploy(self, deploy_graph):
         result = self.rpc.callSync(60, "decaf_masta.deploy_scenario", deploy_graph)

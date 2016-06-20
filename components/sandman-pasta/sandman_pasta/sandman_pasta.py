@@ -22,18 +22,13 @@ __date__ = "$01-jun-2016$"
 
 TMPDIR = "/tmp/decaf/"
 
+
 class Pasta(BasePlugin):
     __version__ = "0.1-dev01"
     datacenters = dict()
     config = None
 
     def __init__(self, logger=None, config=None):
-        # Sample format
-        # datacenters:
-        #   datacenter:
-        #     datacenter_id: uint
-        #     datacenter_name: string
-        #     datacenter_url: url
         with open('/etc/decaf/pastad.cfg') as file:
             self.config = yaml.safe_load(file)
 
@@ -84,8 +79,7 @@ class Pasta(BasePlugin):
 
     def connect(self, url=None, rpc=None, routing_key=None):
         # fake being masta, so we don't have to change other code
-        super(Pasta,self).connect(self.config["rpc"]["url"],None,"decaf_masta")
-
+        super(Pasta, self).connect(self.config["rpc"]["url"], None, "decaf_masta")
 
     @In("datacenter_id", int)
     @Out("success_code", int)
@@ -105,8 +99,10 @@ class Pasta(BasePlugin):
         self.logger.info("Call to create_keystone_credentials")
         return 0
 
+
 def daemon():
     daemonize(Pasta)
+
 
 if __name__ == '__main__':
     daemon()

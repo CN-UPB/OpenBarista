@@ -7,7 +7,7 @@ from decaf_masta.masta import MastaController
 
 db_data = {
     "type" : "mysql",
-    "host" : "fg-cn-decaf-head1.cs.upb.de",
+    "host" : "fg-cn-sandman1.cs.upb.de",
     "port" : 3306,
     "database": "masta_db",
     "user": "masta",
