@@ -57,25 +57,6 @@ class Pasta(BasePlugin):
 
         storage_datacenters = self.storage.get('datacenter', options=[], filters={})
 
-        for datacenter in self.datacenters:
-            datacenter_id = datacenter["datacenter_id"]
-
-            storage_datacenters = self.storage.get('datacenter', options=[],
-                                                   filters={"datacenter_masta_id": datacenter_id})
-
-            if len(storage_datacenters) == 0:
-                # Datacenter not existent, create in Storage
-
-                self.logger.info(
-                    "Found datacenter in pasta database that is not registered in decaf_storage. Attempting to register"
-                    "it in decaf_storage.")
-
-                self.storage.add('datacenter', data={
-                    "name": datacenter["datacenter_name"],
-                    "description": "Description created by MaSta.",
-                    "type": "openstack",
-                    "datacenter_masta_id": datacenter_id
-                })
 
     def connect(self, url=None, rpc=None, routing_key=None):
         # fake being masta, so we don't have to change other code

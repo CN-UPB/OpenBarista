@@ -164,7 +164,7 @@ class BaseDaemon(Service):
             logger.addHandler(fh)
             logger.addHandler(ch)
 
-        except BaseException as e:
+        except Exception as e:
             print "Error while setting up logger:", e
             sys.exit(3)
 
@@ -232,7 +232,7 @@ def make_generic_deamon_class(plugin_class):
 
     class GenericDeamon(BaseDaemon):
 
-        def __init_plugin__(self, logger, config, **kwargs):
+        def __init_plugin__(self, logger, config, *args, **kwargs):
             return plugin_class(logger, config, **kwargs)
 
         def _before_connect(self):

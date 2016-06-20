@@ -18,5 +18,6 @@ sleep 5
 /usr/local/bin/oscard
 /usr/local/bin/vnf_manager_adapterd start
 /usr/local/bin/componentmanagerd start
+/usr/local/bin/example_scalingd start
 
 /usr/local/bin/specificationd fg
