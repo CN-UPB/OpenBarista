@@ -15,8 +15,11 @@ RUN pip install alabaster
 RUN mkdir /var/run/decaf
 RUN mkdir /etc/decaf
 RUN mkdir /var/lib/decaf
+RUN mkdir /etc/rabbitmq
 
 RUN git clone https://github.com/CN-UPB/OpenBarista.git /home/openbarista
+
+RUN echo "[{rabbit, [{loopback_users, []}]}]." > /etc/rabbitmq/rabbitmq.config
 
 RUN /etc/init.d/postgresql start
 RUN /etc/init.d/rabbitmq-server start

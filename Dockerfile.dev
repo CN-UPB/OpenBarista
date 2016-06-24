@@ -15,6 +15,8 @@ RUN pip install alabaster
 RUN mkdir /var/run/decaf
 RUN mkdir /etc/decaf
 RUN mkdir /var/lib/decaf
+RUN mkdir /etc/rabbitmq
+RUN echo "[{rabbit, [{loopback_users, []}]}]." > /etc/rabbitmq/rabbitmq.config
 
 RUN mkdir -p /root/.ssh
 # add the location of your ssh keys here
