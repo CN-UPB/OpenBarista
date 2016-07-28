@@ -68,7 +68,7 @@ def load_configuration(configuration_file):
     :return: A Dictionary which contains the configuration values.
     """
     result = dict()
-    # config = {'rpc': {'url': 'amqp://fg-cn-decaf-head1.cs.upb.de:5672'}}
+    # config = {'rpc': {'url': 'amqp://fg-cn-sandman1.cs.upb.de:5672'}}
     # Set default config
     config = {'rpc': {'url': 'amqp://127.0.0.1'}}
     # Load config from file and overwrite default

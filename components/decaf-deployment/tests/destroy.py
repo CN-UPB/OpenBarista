@@ -9,7 +9,7 @@ def printer(x):
 
 import decaf_utils_rpc.rpc_layer as rpc
 
-r = rpc.RpcLayer(u'amqp://fg-cn-decaf-head1.cs.upb.de:5672')
+r = rpc.RpcLayer(u'amqp://fg-cn-sandman1.cs.upb.de:5672')
 
 scenario_instance_id = str(sys.argv[1])
 

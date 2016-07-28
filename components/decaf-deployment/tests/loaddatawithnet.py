@@ -28,7 +28,7 @@ class TestStorageAPI():
     def __init__(self):
         db = Database({
             "type": 'postgresql',
-            #"host": 'fg-cn-decaf-head1.cs.upb.de',
+            #"host": 'fg-cn-sandman1.cs.upb.de',
             "host": '127.0.0.1',
             "port": '5432',
             "database": 'decaf_storage',

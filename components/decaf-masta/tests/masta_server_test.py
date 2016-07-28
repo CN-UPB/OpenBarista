@@ -9,7 +9,7 @@ import unittest
 class MaStaServerTester(object):
 
     def __init__(self):
-        self.rpc = rpc.RpcLayer(u'amqp://fg-cn-decaf-head1.cs.upb.de:5672')
+        self.rpc = rpc.RpcLayer(u'amqp://fg-cn-sandman1.cs.upb.de:5672')
 
     def test_deploy(self):
         result = self.rpc.callSync(10, "decaf_masta.deploy_scenario", ex.small_deploy_graph)
